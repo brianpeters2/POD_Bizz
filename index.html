@@ -10,11 +10,28 @@
     h1 { font-size:3.5rem; margin:0; letter-spacing:2px; opacity: 0; }
     p.tagline { font-size:1.3rem; margin:20px 0 40px; opacity:0.8; opacity: 0; }
     
+    /* New intro text above tabs */
+    .intro-section {
+      max-width: 800px;
+      margin: 0 auto 40px;
+      padding: 0 20px;
+    }
+    .intro-title {
+      font-size: 2.2rem;
+      font-weight: bold;
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+    }
+    .intro-subtitle {
+      font-size: 1.2rem;
+      opacity: 0.8;
+    }
+    
     /* Tabs container */
     .tabs-container {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 40px 20px 60px;
+      padding: 20px 20px 60px;
       display: flex;
       justify-content: center;
       gap: 80px;
@@ -63,17 +80,17 @@
       opacity: 1;
     }
     
-    /* Fixed item size */
+    /* Regular item */
     .item {
       flex: 0 1 360px;
       max-width: 360px;
       background: #1a1a1a; 
       padding: 30px; 
       border-radius: 16px; 
-      visibility: hidden; /* Hidden by default */
+      visibility: hidden;
       opacity: 0;
       transform: translateY(20px);
-      transition: opacity 0.6s ease-out, transform 0.6s ease-out, visibility 0s 0.6s; /* Delay visibility toggle */
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out, visibility 0s 0.6s;
       box-sizing: border-box;
     }
     .item.show {
@@ -83,18 +100,31 @@
       transition: opacity 0.6s ease-out, transform 0.6s ease-out, visibility 0s 0s;
     }
     
+    /* Coming Soon item style */
+    .item.coming-soon {
+      opacity: 0.5;
+      border: 2px dashed #333;
+    }
+    .item.coming-soon h3 {
+      color: #888;
+      margin-top: 40px;
+    }
+    .coming-soon-label {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #4ade80;
+      margin: 20px 0;
+    }
+    
     .item img { width:100%; border-radius:12px; }
     .item h3 { font-size:1.6rem; margin:20px 0 10px; }
     .price { font-size:1.4rem; color:#4ade80; margin:15px 0; }
-    .btn-placeholder {
-      background:#4ade80; color:#000; padding:14px 30px; border-radius:50px;
-      font-weight:bold; text-decoration:none; display:inline-block; margin-top:15px;
-    }
     footer { padding:40px; background:#000; font-size:0.9rem; opacity:0.6; }
     @media (max-width:640px){ 
       h1{font-size:2.5rem;} 
       .tabs-container { gap: 40px; }
       .tab { font-size: 1.4rem; }
+      .intro-title { font-size: 1.8rem; }
       .item { flex-basis: 300px; max-width: 300px; }
     }
 
@@ -123,6 +153,12 @@
     <p class="tagline">Merch that feels like home — Faith × Gaming × Music</p>
   </header>
 
+  <!-- New intro text -->
+  <div class="intro-section">
+    <div class="intro-title">Your FirstWear</div>
+    <div class="intro-subtitle">Select your firstwear by clicking the tab that makes you feel like home.</div>
+  </div>
+
   <!-- Tabs -->
   <div class="tabs-container">
     <div class="tab active" data-category="faith">Faith</div>
@@ -131,29 +167,58 @@
   </div>
 
   <section class="products" id="products-grid">
-    <!-- Reordered to match tab order: Faith first -->
-    <!-- PRODUCT 2 - Faith -->
+    <!-- Faith Category -->
     <div class="item" data-category="faith">
       <img src="https://via.placeholder.com/400x400/222222/ffffff?text=Light+>+Shadows+Tee" alt="Light > Shadows Tee">
       <h3>Light > Shadows Tee</h3>
       <div class="price">$25</div>
       <div id="shopify-button-2">Loading…</div>
     </div>
-    
-    <!-- PRODUCT 3 - Gaming -->
+    <div class="item coming-soon" data-category="faith">
+      <img src="https://via.placeholder.com/400x400/222222/444444?text=Coming+Soon" alt="Coming Soon">
+      <h3>Coming Soon</h3>
+      <div class="coming-soon-label">SOON</div>
+    </div>
+    <div class="item coming-soon" data-category="faith">
+      <img src="https://via.placeholder.com/400x400/222222/444444?text=Coming+Soon" alt="Coming Soon">
+      <h3>Coming Soon</h3>
+      <div class="coming-soon-label">SOON</div>
+    </div>
+
+    <!-- Gaming Category -->
     <div class="item" data-category="gaming">
       <img src="https://via.placeholder.com/400x400/222222/ffffff?text=Respawn+Hoodie" alt="Respawn Hoodie">
       <h3>Respawn Hoodie</h3>
       <div class="price">$45</div>
       <div id="shopify-button-3">Loading…</div>
     </div>
-    
-    <!-- PRODUCT 1 - Music -->
+    <div class="item coming-soon" data-category="gaming">
+      <img src="https://via.placeholder.com/400x400/222222/444444?text=Coming+Soon" alt="Coming Soon">
+      <h3>Coming Soon</h3>
+      <div class="coming-soon-label">SOON</div>
+    </div>
+    <div class="item coming-soon" data-category="gaming">
+      <img src="https://via.placeholder.com/400x400/222222/444444?text=Coming+Soon" alt="Coming Soon">
+      <h3>Coming Soon</h3>
+      <div class="coming-soon-label">SOON</div>
+    </div>
+
+    <!-- Music Category -->
     <div class="item" data-category="music">
       <img src="https://via.placeholder.com/400x400/222222/ffffff?text=Music+=+Life+Mug" alt="Music = Life Mug">
       <h3>Music = Life Mug</h3>
       <div class="price">$15</div>
       <div id="shopify-button-1">Loading…</div>
+    </div>
+    <div class="item coming-soon" data-category="music">
+      <img src="https://via.placeholder.com/400x400/222222/444444?text=Coming+Soon" alt="Coming Soon">
+      <h3>Coming Soon</h3>
+      <div class="coming-soon-label">SOON</div>
+    </div>
+    <div class="item coming-soon" data-category="music">
+      <img src="https://via.placeholder.com/400x400/222222/444444?text=Coming+Soon" alt="Coming Soon">
+      <h3>Coming Soon</h3>
+      <div class="coming-soon-label">SOON</div>
     </div>
   </section>
 
@@ -176,21 +241,17 @@
 
     tabs.forEach(tab => {
       tab.addEventListener('click', () => {
-        // Update active tab
         tabs.forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
 
         const category = tab.getAttribute('data-category');
 
-        // Make container visible
         productsGrid.classList.add('visible');
 
-        // Hide all items
         items.forEach(item => {
           item.classList.remove('show');
         });
 
-        // Show matching items with stagger
         const matchingItems = document.querySelectorAll(`.item[data-category="${category}"]`);
         matchingItems.forEach((item, index) => {
           setTimeout(() => {
@@ -200,7 +261,7 @@
       });
     });
 
-    // Initial load: trigger Faith tab
+    // Initial load: show Faith
     document.querySelector('.tab.active').click();
   </script>
 </body>
