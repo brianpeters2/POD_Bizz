@@ -48,11 +48,11 @@
       border-radius: 2px;
     }
     
-    /* Products grid - centered, max 3 columns */
+    /* Products - now Flexbox for perfect centering */
     .products { 
-      display: grid; 
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      justify-content: center; /* Centers the grid items */
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center; /* Centers items horizontally */
       gap: 40px; 
       padding: 20px; 
       max-width: 1200px; 
@@ -64,20 +64,17 @@
       opacity: 1;
     }
     
-    /* Force max 3 columns on large screens */
-    @media (min-width: 900px) {
-      .products {
-        grid-template-columns: repeat(3, minmax(280px, 1fr));
-      }
-    }
-    
-    .item { 
+    /* Max 3 items per row on large screens */
+    .item {
+      flex: 1 1 280px; /* Grow/shrink, min width 280px */
+      max-width: 380px; /* Controls max width per item */
       background: #1a1a1a; 
       padding: 30px; 
       border-radius: 16px; 
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      box-sizing: border-box;
     }
     .item.show {
       opacity: 1;
@@ -181,7 +178,7 @@
 
         const category = tab.getAttribute('data-category');
 
-        // Make grid visible
+        // Make container visible
         productsGrid.classList.add('visible');
 
         // Hide all items first
