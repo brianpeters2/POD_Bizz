@@ -65,7 +65,7 @@
       border-radius: 2px;
     }
     
-    /* Products - Flexbox with true perfect centering */
+    /* Products section - hidden until first click */
     .products { 
       display: flex;
       flex-wrap: wrap;
@@ -74,26 +74,29 @@
       max-width: 1200px; 
       margin: 0 auto;
       opacity: 0;
-      transition: opacity 0.4s ease;
+      visibility: hidden; /* Completely hidden initially */
+      transition: opacity 0.6s ease, visibility 0s 0.6s;
     }
     .products.visible {
       opacity: 1;
+      visibility: visible;
+      transition: opacity 0.6s ease, visibility 0s 0s;
     }
     
-    /* Fixed item size - no growing, perfect centering */
+    /* Fixed item size */
     .item {
-      flex: 0 0 360px; /* Fixed width, no shrink/grow */
+      flex: 0 0 360px;
       background: #1a1a1a; 
       padding: 30px; 
       border-radius: 16px; 
-      display: none; /* Hidden by default - removed from layout */
+      display: none; /* Hidden by default */
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 0.6s ease-out, transform 0.6s ease-out;
       box-sizing: border-box;
     }
     .item.show {
-      display: block; /* Back in layout */
+      display: block;
       opacity: 1;
       transform: translateY(0);
     }
@@ -123,7 +126,7 @@
       .tabs-container { gap: 40px; }
       .tab { font-size: 1.4rem; }
       .intro-title { font-size: 1.8rem; }
-      .item { flex-basis: 300px; }
+      .item { flex: 0 0 300px; }
     }
 
     /* Header fade-in */
@@ -161,108 +164,4 @@
   <div class="tabs-container">
     <div class="tab active" data-category="faith">Faith</div>
     <div class="tab" data-category="gaming">Gaming</div>
-    <div class="tab" data-category="music">Music</div>
-  </div>
-
-  <section class="products" id="products-grid">
-    <!-- Faith -->
-    <div class="item" data-category="faith">
-      <img src="https://via.placeholder.com/400x400/222222/ffffff?text=Light+>+Shadows+Tee" alt="Light > Shadows Tee">
-      <h3>Light > Shadows Tee</h3>
-      <div class="price">$25</div>
-      <div id="shopify-button-2">Loading…</div>
-    </div>
-    <div class="item coming-soon" data-category="faith">
-      <img src="https://via.placeholder.com/400x400/222222/444444?text=Coming+Soon" alt="Coming Soon">
-      <h3>Coming Soon</h3>
-      <div class="coming-soon-label">SOON</div>
-    </div>
-    <div class="item coming-soon" data-category="faith">
-      <img src="https://via.placeholder.com/400x400/222222/444444?text=Coming+Soon" alt="Coming Soon">
-      <h3>Coming Soon</h3>
-      <div class="coming-soon-label">SOON</div>
-    </div>
-
-    <!-- Gaming -->
-    <div class="item" data-category="gaming">
-      <img src="https://via.placeholder.com/400x400/222222/ffffff?text=Respawn+Hoodie" alt="Respawn Hoodie">
-      <h3>Respawn Hoodie</h3>
-      <div class="price">$45</div>
-      <div id="shopify-button-3">Loading…</div>
-    </div>
-    <div class="item coming-soon" data-category="gaming">
-      <img src="https://via.placeholder.com/400x400/222222/444444?text=Coming+Soon" alt="Coming Soon">
-      <h3>Coming Soon</h3>
-      <div class="coming-soon-label">SOON</div>
-    </div>
-    <div class="item coming-soon" data-category="gaming">
-      <img src="https://via.placeholder.com/400x400/222222/444444?text=Coming+Soon" alt="Coming Soon">
-      <h3>Coming Soon</h3>
-      <div class="coming-soon-label">SOON</div>
-    </div>
-
-    <!-- Music -->
-    <div class="item" data-category="music">
-      <img src="https://via.placeholder.com/400x400/222222/ffffff?text=Music+=+Life+Mug" alt="Music = Life Mug">
-      <h3>Music = Life Mug</h3>
-      <div class="price">$15</div>
-      <div id="shopify-button-1">Loading…</div>
-    </div>
-    <div class="item coming-soon" data-category="music">
-      <img src="https://via.placeholder.com/400x400/222222/444444?text=Coming+Soon" alt="Coming Soon">
-      <h3>Coming Soon</h3>
-      <div class="coming-soon-label">SOON</div>
-    </div>
-    <div class="item coming-soon" data-category="music">
-      <img src="https://via.placeholder.com/400x400/222222/444444?text=Coming+Soon" alt="Coming Soon">
-      <h3>Coming Soon</h3>
-      <div class="coming-soon-label">SOON</div>
-    </div>
-  </section>
-
-  <footer>
-    © 2025 HomeWearGoods — Made by Freddie Bryant Meyers<br>
-    Questions? DM @homeweargoods on TikTok/IG
-  </footer>
-
-  <script>
-    // Header fade-in
-    window.addEventListener('load', function() {
-      document.querySelector('h1').classList.add('fade-in');
-      document.querySelector('p.tagline').classList.add('fade-in');
-    });
-
-    // Tabs functionality
-    const tabs = document.querySelectorAll('.tab');
-    const productsGrid = document.getElementById('products-grid');
-    const items = document.querySelectorAll('.item');
-
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        tabs.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-
-        const category = tab.getAttribute('data-category');
-
-        productsGrid.classList.add('visible');
-
-        // Hide all
-        items.forEach(item => {
-          item.classList.remove('show');
-        });
-
-        // Show matching with stagger
-        const matchingItems = document.querySelectorAll(`.item[data-category="${category}"]`);
-        matchingItems.forEach((item, index) => {
-          setTimeout(() => {
-            item.classList.add('show');
-          }, index * 200);
-        });
-      });
-    });
-
-    // Initial: show Faith
-    document.querySelector('.tab.active').click();
-  </script>
-</body>
-</html>
+    <div class="tab" data-category="music
