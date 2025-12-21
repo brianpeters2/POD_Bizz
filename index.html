@@ -10,7 +10,7 @@
     h1 { font-size:3.5rem; margin:0; letter-spacing:2px; opacity: 0; }
     p.tagline { font-size:1.3rem; margin:20px 0 40px; opacity:0.8; opacity: 0; }
     
-    /* Tabs container - horizontal but spaced nicely */
+    /* Tabs container */
     .tabs-container {
       max-width: 1200px;
       margin: 0 auto;
@@ -48,18 +48,27 @@
       border-radius: 2px;
     }
     
+    /* Products grid - centered, max 3 columns */
     .products { 
       display: grid; 
-      grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); 
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      justify-content: center; /* Centers the grid items */
       gap: 40px; 
       padding: 20px; 
       max-width: 1200px; 
       margin: 0 auto;
-      opacity: 0; /* Hidden until a tab is clicked */
+      opacity: 0;
       transition: opacity 0.4s ease;
     }
     .products.visible {
       opacity: 1;
+    }
+    
+    /* Force max 3 columns on large screens */
+    @media (min-width: 900px) {
+      .products {
+        grid-template-columns: repeat(3, minmax(280px, 1fr));
+      }
     }
     
     .item { 
@@ -89,7 +98,7 @@
       .tab { font-size: 1.4rem; }
     }
 
-    /* Fade-in animation for header */
+    /* Header fade-in */
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
@@ -114,7 +123,7 @@
     <p class="tagline">Merch that feels like home — Faith × Gaming × Music</p>
   </header>
 
-  <!-- Clean text tabs -->
+  <!-- Tabs -->
   <div class="tabs-container">
     <div class="tab active" data-category="faith">Faith</div>
     <div class="tab" data-category="gaming">Gaming</div>
@@ -172,7 +181,7 @@
 
         const category = tab.getAttribute('data-category');
 
-        // Make grid visible (fade in container)
+        // Make grid visible
         productsGrid.classList.add('visible');
 
         // Hide all items first
@@ -180,12 +189,12 @@
           item.classList.remove('show');
         });
 
-        // Filter and show matching items with staggered fade-in
+        // Show matching items with stagger
         const matchingItems = document.querySelectorAll(`.item[data-category="${category}"]`);
         matchingItems.forEach((item, index) => {
           setTimeout(() => {
             item.classList.add('show');
-          }, index * 200); // 200ms delay between each item
+          }, index * 200);
         });
       });
     });
