@@ -74,7 +74,7 @@
       max-width: 1200px; 
       margin: 0 auto;
       opacity: 0;
-      visibility: hidden; /* Completely hidden initially */
+      visibility: hidden;
       transition: opacity 0.6s ease, visibility 0s 0.6s;
     }
     .products.visible {
@@ -89,7 +89,7 @@
       background: #1a1a1a; 
       padding: 30px; 
       border-radius: 16px; 
-      display: none; /* Hidden by default */
+      display: none;
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 0.6s ease-out, transform 0.6s ease-out;
@@ -129,22 +129,22 @@
       .item { flex: 0 0 300px; }
     }
 
-    /* Header fade-in */
+    /* Faster header fade-in */
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
     .fade-in {
-      animation: fadeIn 1.2s ease-out forwards;
+      animation: fadeIn 0.7s ease-out forwards; /* Faster duration */
     }
 
     h1.fade-in {
-      animation-delay: 0.3s;
+      animation-delay: 0.1s; /* Appears almost immediately */
     }
 
     p.tagline.fade-in {
-      animation-delay: 0.8s;
+      animation-delay: 0.4s; /* Follows quickly after h1 */
     }
   </style>
 </head>
@@ -229,7 +229,7 @@
   </footer>
 
   <script>
-    // Header fade-in
+    // Faster header fade-in on load
     window.addEventListener('load', function() {
       document.querySelector('h1').classList.add('fade-in');
       document.querySelector('p.tagline').classList.add('fade-in');
@@ -242,21 +242,17 @@
 
     tabs.forEach(tab => {
       tab.addEventListener('click', () => {
-        // Activate tab
         tabs.forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
 
         const category = tab.getAttribute('data-category');
 
-        // Reveal the entire products section on first click
         productsGrid.classList.add('visible');
 
-        // Hide all items
         items.forEach(item => {
           item.classList.remove('show');
         });
 
-        // Show matching items with stagger
         const matchingItems = document.querySelectorAll(`.item[data-category="${category}"]`);
         matchingItems.forEach((item, index) => {
           setTimeout(() => {
@@ -265,8 +261,6 @@
         });
       });
     });
-
-    // No auto-show on load — user must click a tab first
   </script>
 </body>
 </html>
