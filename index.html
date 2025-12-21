@@ -10,7 +10,7 @@
     h1 { font-size:3.5rem; margin:0; letter-spacing:2px; opacity: 0; }
     p.tagline { font-size:1.3rem; margin:20px 0 40px; opacity:0.8; opacity: 0; }
     
-    /* Intro section fade-in */
+    /* Intro section starts hidden */
     .intro-section {
       max-width: 800px;
       margin: 0 auto 40px;
@@ -143,12 +143,12 @@
 </head>
 <body>
   <header>
-    <h1 class="fade-in">HomeWearGoods</h1>
-    <p class="tagline fade-in">Merch that feels like home — Faith × Gaming × Music</p>
+    <h1>HomeWearGoods</h1>
+    <p class="tagline">Merch that feels like home — Faith × Gaming × Music</p>
   </header>
 
-  <!-- Intro text - fades in last -->
-  <div class="intro-section fade-in">
+  <!-- Intro text -->
+  <div class="intro-section">
     <div class="intro-title">Your FirstWear</div>
     <div class="intro-subtitle">Select your firstwear by clicking the tab that makes you feel like home.</div>
   </div>
@@ -222,18 +222,17 @@
   </footer>
 
   <script>
-    // Staggered fade-ins on load
+    // Precise staggered fade-ins on load
     window.addEventListener('load', function() {
-      // h1: right away
-      document.querySelector('h1').style.animationDelay = '0s';
+      // 1. h1 - immediately
       document.querySelector('h1').classList.add('fade-in');
 
-      // tagline: 1 second later
+      // 2. Tagline - 1 second after h1
       setTimeout(() => {
         document.querySelector('p.tagline').classList.add('fade-in');
       }, 1000);
 
-      // intro section: 2 seconds total
+      // 3. Your FirstWear section - 1 second after tagline (~2s total)
       setTimeout(() => {
         document.querySelector('.intro-section').classList.add('fade-in');
       }, 2000);
