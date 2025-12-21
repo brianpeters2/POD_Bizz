@@ -48,13 +48,12 @@
       border-radius: 2px;
     }
     
-    /* Products - Flexbox for perfect centering */
+    /* Products - Flexbox with true centering */
     .products { 
       display: flex;
       flex-wrap: wrap;
-      justify-content: center; /* Always centers the visible items */
+      justify-content: center; /* Centers everything perfectly */
       gap: 40px; 
-      padding: 20px; 
       max-width: 1200px; 
       margin: 0 auto;
       opacity: 0;
@@ -64,9 +63,10 @@
       opacity: 1;
     }
     
-    /* Lock item size for consistent centering */
+    /* Consistent item size for perfect centering */
     .item {
-      flex: 0 1 360px; /* Fixed basis width, no growing */
+      flex: 0 1 360px; /* Fixed basis, no unwanted growing */
+      max-width: 360px; /* Prevents stretching on wide screens */
       background: #1a1a1a; 
       padding: 30px; 
       border-radius: 16px; 
@@ -92,7 +92,7 @@
       h1{font-size:2.5rem;} 
       .tabs-container { gap: 40px; }
       .tab { font-size: 1.4rem; }
-      .item { flex-basis: 300px; } /* Slightly narrower on mobile */
+      .item { flex-basis: 300px; max-width: 300px; }
     }
 
     /* Header fade-in */
