@@ -9,8 +9,56 @@
     header { padding:60px 20px 40px; background:#111; }
     h1 { font-size:3.5rem; margin:0; letter-spacing:2px; opacity: 0; }
     p.tagline { font-size:1.3rem; margin:20px 0 40px; opacity:0.8; opacity: 0; }
-    .products { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:40px; padding:60px 20px; max-width:1200px; margin:0 auto; }
-    .item { background:#1a1a1a; padding:30px; border-radius:16px; }
+    
+    /* Tabs container */
+    .tabs-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px 20px;
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      flex-wrap: wrap;
+    }
+    .tab {
+      cursor: pointer;
+      text-align: center;
+      padding: 20px;
+      opacity: 0.6;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .tab.active {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+    .tab img {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 10px;
+      filter: brightness(0) invert(1); /* Makes icons white on dark bg */
+    }
+    .tab-label {
+      font-size: 1.4rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+    
+    .products { 
+      display:grid; 
+      grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); 
+      gap:40px; 
+      padding:20px; 
+      max-width:1200px; 
+      margin:0 auto; 
+    }
+    .item { 
+      background:#1a1a1a; 
+      padding:30px; 
+      border-radius:16px; 
+      display: none; /* Hidden by default, shown via JS */
+    }
+    .item.show { display: block; }
+    
     .item img { width:100%; border-radius:12px; }
     .item h3 { font-size:1.6rem; margin:20px 0 10px; }
     .price { font-size:1.4rem; color:#4ade80; margin:15px 0; }
@@ -19,7 +67,11 @@
       font-weight:bold; text-decoration:none; display:inline-block; margin-top:15px;
     }
     footer { padding:40px; background:#000; font-size:0.9rem; opacity:0.6; }
-    @media (max-width:640px){ h1{font-size:2.5rem;} }
+    @media (max-width:640px){ 
+      h1{font-size:2.5rem;} 
+      .tabs-container { gap: 30px; }
+      .tab img { width: 60px; height: 60px; }
+    }
 
     /* Fade-in animation */
     @keyframes fadeIn {
@@ -45,42 +97,86 @@
     <h1>HomeWearGoods</h1>
     <p class="tagline">Merch that feels like home — Faith × Gaming × Music</p>
   </header>
+
+  <!-- Vertical Tabs -->
+  <div class="tabs-container">
+    <div class="tab active" data-category="faith">
+      <img src="https://t3.ftcdn.net/jpg/01/94/57/94/360_F_194579439_SuiCgc9lhRkpvXmtkXIRoSPT0pry1FgJ.jpg" alt="Faith icon">
+      <div class="tab-label">Faith</div>
+    </div>
+    <div class="tab" data-category="gaming">
+      <img src="https://img.freepik.com/premium-photo/minimalist-colorful-illustration-video-game-controller-dark-background_14117-892510.jpg" alt="Gaming icon">
+      <div class="tab-label">Gaming</div>
+    </div>
+    <div class="tab" data-category="music">
+      <img src="https://thumbs.dreamstime.com/b/minimalist-illustration-features-white-over-ear-headphones-dark-black-background-musical-notes-abstract-sound-405873813.jpg" alt="Music icon">
+      <div class="tab-label">Music</div>
+    </div>
+  </div>
+
   <section class="products">
-    <!-- PRODUCT 1 -->
-    <div class="item">
+    <!-- PRODUCT 1 - Music -->
+    <div class="item" data-category="music">
       <img src="https://via.placeholder.com/400x400/222222/ffffff?text=Music+=+Life+Mug" alt="Music = Life Mug">
       <h3>Music = Life Mug</h3>
       <div class="price">$15</div>
-      <!-- ↓↓↓ PASTE YOUR SHOPIFY BUY BUTTON CODE HERE ↓↓↓ -->
       <div id="shopify-button-1">Loading…</div>
-      <!-- ↑↑↑ PASTE YOUR SHOPIFY BUY BUTTON CODE HERE ↑↑↑ -->
     </div>
-    <!-- PRODUCT 2 -->
-    <div class="item">
+    
+    <!-- PRODUCT 2 - Faith -->
+    <div class="item" data-category="faith">
       <img src="https://via.placeholder.com/400x400/222222/ffffff?text=Light+>+Shadows+Tee" alt="Light > Shadows Tee">
       <h3>Light > Shadows Tee</h3>
       <div class="price">$25</div>
       <div id="shopify-button-2">Loading…</div>
     </div>
-    <!-- PRODUCT 3 -->
-    <div class="item">
+    
+    <!-- PRODUCT 3 - Gaming -->
+    <div class="item" data-category="gaming">
       <img src="https://via.placeholder.com/400x400/222222/ffffff?text=Respawn+Hoodie" alt="Respawn Hoodie">
       <h3>Respawn Hoodie</h3>
       <div class="price">$45</div>
       <div id="shopify-button-3">Loading…</div>
     </div>
   </section>
+
   <footer>
     © 2025 HomeWearGoods — Made by Freddie Bryant Meyers<br>
     Questions? DM @homeweargoods on TikTok/IG
   </footer>
 
   <script>
-    // Trigger animations on page load
+    // Header fade-in
     window.addEventListener('load', function() {
       document.querySelector('h1').classList.add('fade-in');
       document.querySelector('p.tagline').classList.add('fade-in');
     });
+
+    // Tabs functionality
+    const tabs = document.querySelectorAll('.tab');
+    const items = document.querySelectorAll('.item');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        // Update active tab
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        const category = tab.getAttribute('data-category');
+
+        // Show/hide products
+        items.forEach(item => {
+          if (category === 'all' || item.getAttribute('data-category') === category) {
+            item.classList.add('show');
+          } else {
+            item.classList.remove('show');
+          }
+        });
+      });
+    });
+
+    // Show initial category (Faith)
+    document.querySelector('.tab.active').click();
   </script>
 </body>
 </html>
