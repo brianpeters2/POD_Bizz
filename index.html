@@ -48,11 +48,11 @@
       border-radius: 2px;
     }
     
-    /* Products - Flexbox with true centering */
+    /* Products - Flexbox with perfect centering */
     .products { 
       display: flex;
       flex-wrap: wrap;
-      justify-content: center; /* Centers everything perfectly */
+      justify-content: center;
       gap: 40px; 
       max-width: 1200px; 
       margin: 0 auto;
@@ -63,21 +63,24 @@
       opacity: 1;
     }
     
-    /* Consistent item size for perfect centering */
+    /* Fixed item size */
     .item {
-      flex: 0 1 360px; /* Fixed basis, no unwanted growing */
-      max-width: 360px; /* Prevents stretching on wide screens */
+      flex: 0 1 360px;
+      max-width: 360px;
       background: #1a1a1a; 
       padding: 30px; 
       border-radius: 16px; 
+      visibility: hidden; /* Hidden by default */
       opacity: 0;
       transform: translateY(20px);
-      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out, visibility 0s 0.6s; /* Delay visibility toggle */
       box-sizing: border-box;
     }
     .item.show {
+      visibility: visible;
       opacity: 1;
       transform: translateY(0);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out, visibility 0s 0s;
     }
     
     .item img { width:100%; border-radius:12px; }
@@ -128,14 +131,7 @@
   </div>
 
   <section class="products" id="products-grid">
-    <!-- PRODUCT 1 - Music -->
-    <div class="item" data-category="music">
-      <img src="https://via.placeholder.com/400x400/222222/ffffff?text=Music+=+Life+Mug" alt="Music = Life Mug">
-      <h3>Music = Life Mug</h3>
-      <div class="price">$15</div>
-      <div id="shopify-button-1">Loading…</div>
-    </div>
-    
+    <!-- Reordered to match tab order: Faith first -->
     <!-- PRODUCT 2 - Faith -->
     <div class="item" data-category="faith">
       <img src="https://via.placeholder.com/400x400/222222/ffffff?text=Light+>+Shadows+Tee" alt="Light > Shadows Tee">
@@ -150,6 +146,14 @@
       <h3>Respawn Hoodie</h3>
       <div class="price">$45</div>
       <div id="shopify-button-3">Loading…</div>
+    </div>
+    
+    <!-- PRODUCT 1 - Music -->
+    <div class="item" data-category="music">
+      <img src="https://via.placeholder.com/400x400/222222/ffffff?text=Music+=+Life+Mug" alt="Music = Life Mug">
+      <h3>Music = Life Mug</h3>
+      <div class="price">$15</div>
+      <div id="shopify-button-1">Loading…</div>
     </div>
   </section>
 
@@ -181,7 +185,7 @@
         // Make container visible
         productsGrid.classList.add('visible');
 
-        // Hide all items first
+        // Hide all items
         items.forEach(item => {
           item.classList.remove('show');
         });
@@ -195,6 +199,9 @@
         });
       });
     });
+
+    // Initial load: trigger Faith tab
+    document.querySelector('.tab.active').click();
   </script>
 </body>
 </html>
