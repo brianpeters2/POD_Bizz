@@ -10,11 +10,12 @@
     h1 { font-size:3.5rem; margin:0; letter-spacing:2px; opacity: 0; }
     p.tagline { font-size:1.3rem; margin:20px 0 40px; opacity:0.8; opacity: 0; }
     
-    /* Intro text */
+    /* Intro section fade-in */
     .intro-section {
       max-width: 800px;
       margin: 0 auto 40px;
       padding: 0 20px;
+      opacity: 0;
     }
     .intro-title {
       font-size: 2.2rem;
@@ -129,33 +130,25 @@
       .item { flex: 0 0 300px; }
     }
 
-    /* Faster header fade-in */
-    @keyframes fadeIn {
+    /* Fade-in animation */
+    @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
     .fade-in {
-      animation: fadeIn 0.7s ease-out forwards; /* Faster duration */
-    }
-
-    h1.fade-in {
-      animation-delay: 0.1s; /* Appears almost immediately */
-    }
-
-    p.tagline.fade-in {
-      animation-delay: 0.4s; /* Follows quickly after h1 */
+      animation: fadeInUp 0.7s ease-out forwards;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>HomeWearGoods</h1>
-    <p class="tagline">Merch that feels like home — Faith × Gaming × Music</p>
+    <h1 class="fade-in">HomeWearGoods</h1>
+    <p class="tagline fade-in">Merch that feels like home — Faith × Gaming × Music</p>
   </header>
 
-  <!-- Intro text -->
-  <div class="intro-section">
+  <!-- Intro text - fades in last -->
+  <div class="intro-section fade-in">
     <div class="intro-title">Your FirstWear</div>
     <div class="intro-subtitle">Select your firstwear by clicking the tab that makes you feel like home.</div>
   </div>
@@ -229,10 +222,21 @@
   </footer>
 
   <script>
-    // Faster header fade-in on load
+    // Staggered fade-ins on load
     window.addEventListener('load', function() {
+      // h1: right away
+      document.querySelector('h1').style.animationDelay = '0s';
       document.querySelector('h1').classList.add('fade-in');
-      document.querySelector('p.tagline').classList.add('fade-in');
+
+      // tagline: 1 second later
+      setTimeout(() => {
+        document.querySelector('p.tagline').classList.add('fade-in');
+      }, 1000);
+
+      // intro section: 2 seconds total
+      setTimeout(() => {
+        document.querySelector('.intro-section').classList.add('fade-in');
+      }, 2000);
     });
 
     // Tabs functionality
