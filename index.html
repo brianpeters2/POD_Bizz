@@ -24,12 +24,14 @@
       font-size: 3.5rem;
       margin: 0;
       opacity: 0;
+      transition: opacity 1s ease;
     }
 
     p.tagline {
       font-size: 1.3rem;
       margin: 20px 0 40px;
       opacity: 0;
+      transition: opacity 1s ease;
     }
 
     .intro-section {
@@ -37,6 +39,7 @@
       margin: 0 auto 40px;
       padding: 0 20px;
       opacity: 0;
+      transition: opacity 1s ease;
     }
 
     .intro-title {
@@ -90,31 +93,15 @@
     }
 
     .item {
-      flex: 0 0 360px;
+      flex: 0 0 340px;
       background: #1a1a1a;
-      padding: 30px;
+      padding: 24px;
       border-radius: 16px;
       display: none;
     }
 
     .item.show {
       display: block;
-    }
-
-    .item img {
-      width: 100%;
-      border-radius: 12px;
-    }
-
-    .item h3 {
-      font-size: 1.6rem;
-      margin: 20px 0 10px;
-    }
-
-    .price {
-      font-size: 1.4rem;
-      color: #4ade80;
-      margin-bottom: 10px;
     }
 
     footer {
@@ -146,14 +133,9 @@
 
 <section class="products" id="products-grid">
 
-  <!-- FAITH -->
-  <div class="item" data-category="faith">
-    <img src="https://via.placeholder.com/400x400/222222/ffffff?text=Disciple+Mug" alt="Disciple Mug">
-    <h3>Disciple Mug</h3>
-    <div class="price">$15</div>
-
-    <!-- Shopify Buy Button -->
-    <div id="product-component-1767467124116"></div>
+  <!-- FAITH PRODUCT -->
+  <div class="item show" data-category="faith">
+    <div id="disciple-mug"></div>
   </div>
 
 </section>
@@ -163,15 +145,15 @@
 </footer>
 
 <script>
-  // Fade in
+  // Fade-in animation
   window.addEventListener('load', () => {
     document.querySelector('h1').style.opacity = 1;
-    setTimeout(() => document.querySelector('.tagline').style.opacity = 1, 800);
-    setTimeout(() => document.querySelector('.intro-section').style.opacity = 1, 1600);
+    setTimeout(() => document.querySelector('.tagline').style.opacity = 1, 600);
+    setTimeout(() => document.querySelector('.intro-section').style.opacity = 1, 1200);
+    document.getElementById('products-grid').classList.add('visible');
   });
 
   const tabs = document.querySelectorAll('.tab');
-  const productsGrid = document.getElementById('products-grid');
   const items = document.querySelectorAll('.item');
 
   let shopifyLoaded = false;
@@ -182,89 +164,67 @@
       tab.classList.add('active');
 
       const category = tab.dataset.category;
-      productsGrid.classList.add('visible');
 
       items.forEach(item => item.classList.remove('show'));
+      document.querySelector(`.item[data-category="${category}"]`)?.classList.add('show');
 
-      document.querySelectorAll(`.item[data-category="${category}"]`)
-        .forEach(item => item.classList.add('show'));
-
-      if (category === 'faith') loadDiscipleMug();
+      if (category === 'faith') loadShopify();
     });
   });
 
-  function loadDiscipleMug() {
+  function loadShopify() {
     if (shopifyLoaded) return;
     shopifyLoaded = true;
 
-    (function () {
-      var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
+    const script = document.createElement('script');
+    script.src = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
+    script.async = true;
+    script.onload = initShopify;
+    document.body.appendChild(script);
+  }
 
-      function loadScript() {
-        var script = document.createElement('script');
-        script.async = true;
-        script.src = scriptURL;
-        document.body.appendChild(script);
-        script.onload = ShopifyBuyInit;
-      }
+  function initShopify() {
+    const client = ShopifyBuy.buildClient({
+      domain: 'YOUR-SHOP.myshopify.com',
+      storefrontAccessToken: 'YOUR_STOREFRONT_TOKEN'
+    });
 
-     ui.createComponent('product', {
-  id: '10142594531607',
-  node: document.getElementById('product-component-1767467124116'),
-  moneyFormat: '%24%7B%7Bamount%7D%7D',
-  options: {
-    product: {
-      layout: 'vertical',
-      width: '260px',   // 👈 smaller, fits your card
-      styles: {
-        product: {
-          'margin': '0 auto'
-        },
-        img: {
-          'max-width': '100%',
-          'height': 'auto'
-        },
-        title: {
-          'font-size': '18px',
-          'color': '#ffffff'
-        },
-        price: {
-          'font-size': '16px',
-          'color': '#4ade80'
-        },
-        button: {
-          'background-color': '#4ade80',
-          'color': '#000',
-          ':hover': {
-            'background-color': '#22c55e'
+    ShopifyBuy.UI.onReady(client).then(ui => {
+      ui.createComponent('product', {
+        id: '10142594531607',
+        node: document.getElementById('disciple-mug'),
+        moneyFormat: '%24%7B%7Bamount%7D%7D',
+        options: {
+          product: {
+            width: '280px',
+            contents: {
+              img: true,
+              imgWithCarousel: true,
+              title: true,
+              price: true,
+              description: false,
+              quantity: false
+            },
+            styles: {
+              product: {
+                'margin': '0 auto'
+              },
+              button: {
+                'background-color': '#4ade80',
+                'color': '#000',
+                ':hover': { 'background-color': '#22c55e' }
+              },
+              price: {
+                'color': '#4ade80'
+              }
+            },
+            text: {
+              button: 'Add to cart'
+            }
           }
         }
-      },
-      contents: {
-        img: true,
-        imgWithCarousel: true,   // ✅ enables arrows
-        description: false,
-        quantity: false
-      },
-      text: {
-        button: 'Add to cart'
-      }
-    },
-    cart: {
-      text: {
-        total: 'Subtotal',
-        button: 'Checkout'
-      }
-    }
-  }
-});
-
-      if (window.ShopifyBuy && window.ShopifyBuy.UI) {
-        ShopifyBuyInit();
-      } else {
-        loadScript();
-      }
-    })();
+      });
+    });
   }
 </script>
 
