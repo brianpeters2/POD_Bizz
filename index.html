@@ -208,20 +208,56 @@
         script.onload = ShopifyBuyInit;
       }
 
-      function ShopifyBuyInit() {
-        var client = ShopifyBuy.buildClient({
-          domain: '1vui80-yp.myshopify.com',
-          storefrontAccessToken: '13c816c212788e84e7297615156fc734',
-        });
-
-        ShopifyBuy.UI.onReady(client).then(function (ui) {
-          ui.createComponent('product', {
-            id: '10142594531607',
-            node: document.getElementById('product-component-1767467124116'),
-            moneyFormat: '%24%7B%7Bamount%7D%7D',
-          });
-        });
+     ui.createComponent('product', {
+  id: '10142594531607',
+  node: document.getElementById('product-component-1767467124116'),
+  moneyFormat: '%24%7B%7Bamount%7D%7D',
+  options: {
+    product: {
+      layout: 'vertical',
+      width: '260px',   // 👈 smaller, fits your card
+      styles: {
+        product: {
+          'margin': '0 auto'
+        },
+        img: {
+          'max-width': '100%',
+          'height': 'auto'
+        },
+        title: {
+          'font-size': '18px',
+          'color': '#ffffff'
+        },
+        price: {
+          'font-size': '16px',
+          'color': '#4ade80'
+        },
+        button: {
+          'background-color': '#4ade80',
+          'color': '#000',
+          ':hover': {
+            'background-color': '#22c55e'
+          }
+        }
+      },
+      contents: {
+        img: true,
+        imgWithCarousel: true,   // ✅ enables arrows
+        description: false,
+        quantity: false
+      },
+      text: {
+        button: 'Add to cart'
       }
+    },
+    cart: {
+      text: {
+        total: 'Subtotal',
+        button: 'Checkout'
+      }
+    }
+  }
+});
 
       if (window.ShopifyBuy && window.ShopifyBuy.UI) {
         ShopifyBuyInit();
