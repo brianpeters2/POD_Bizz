@@ -4,54 +4,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HomeWearGoods — Merch that feels like home</title>
-
   <style>
-    body, html {
-      margin: 0;
-      padding: 0;
-      font-family: 'Helvetica Neue', Arial, sans-serif;
-      background: #0f0f0f;
-      color: #fff;
-      text-align: center;
-    }
-
-    header {
-      padding: 60px 20px 40px;
-      background: #111;
-    }
-
-    h1 {
-      font-size: 3.5rem;
-      margin: 0;
-      opacity: 0;
-      transition: opacity 1s ease;
-    }
-
-    p.tagline {
-      font-size: 1.3rem;
-      margin: 20px 0 40px;
-      opacity: 0;
-      transition: opacity 1s ease;
-    }
-
+    body, html { margin:0; padding:0; font-family:'Helvetica Neue', Arial, sans-serif; background:#0f0f0f; color:#fff; text-align:center; }
+    header { padding:60px 20px 40px; background:#111; }
+    h1 { font-size:3.5rem; margin:0; letter-spacing:2px; opacity: 0; }
+    p.tagline { font-size:1.3rem; margin:20px 0 40px; opacity:0.8; opacity: 0; }
+    
+    /* Intro section starts hidden */
     .intro-section {
       max-width: 800px;
       margin: 0 auto 40px;
       padding: 0 20px;
       opacity: 0;
-      transition: opacity 1s ease;
     }
-
     .intro-title {
       font-size: 2.2rem;
       font-weight: bold;
+      margin-bottom: 12px;
+      letter-spacing: 1px;
     }
-
     .intro-subtitle {
       font-size: 1.2rem;
       opacity: 0.8;
     }
-
+    
+    /* Tabs container */
     .tabs-container {
       max-width: 1200px;
       margin: 0 auto;
@@ -61,172 +38,232 @@
       gap: 80px;
       flex-wrap: wrap;
     }
-
     .tab {
       cursor: pointer;
       font-size: 1.6rem;
       font-weight: bold;
+      letter-spacing: 1px;
       opacity: 0.6;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      position: relative;
+      padding: 10px 0;
     }
-
+    .tab:hover {
+      opacity: 1;
+      transform: scale(1.1);
+    }
     .tab.active {
       opacity: 1;
-      border-bottom: 3px solid #4ade80;
-      padding-bottom: 6px;
     }
-
-    .products {
+    .tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: #4ade80;
+      border-radius: 2px;
+    }
+    
+    /* Products section - hidden until first click */
+    .products { 
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 40px;
-      max-width: 1200px;
+      gap: 40px; 
+      max-width: 1200px; 
       margin: 0 auto;
       opacity: 0;
       visibility: hidden;
-      transition: opacity 0.5s ease;
+      transition: opacity 0.6s ease, visibility 0s 0.6s;
     }
-
     .products.visible {
       opacity: 1;
       visibility: visible;
+      transition: opacity 0.6s ease, visibility 0s 0s;
     }
-
+    
+    /* Fixed item size */
     .item {
-      flex: 0 0 340px;
-      background: #1a1a1a;
-      padding: 24px;
-      border-radius: 16px;
+      flex: 0 0 360px;
+      background: #1a1a1a; 
+      padding: 30px; 
+      border-radius: 16px; 
       display: none;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      box-sizing: border-box;
     }
-
     .item.show {
       display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Coming Soon style */
+    .item.coming-soon {
+      opacity: 0.5;
+      border: 2px dashed #333;
+    }
+    .item.coming-soon h3 {
+      color: #888;
+      margin-top: 40px;
+    }
+    .coming-soon-label {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #4ade80;
+      margin: 20px 0;
+    }
+    
+    .item img { width:100%; border-radius:12px; }
+    .item h3 { font-size:1.6rem; margin:20px 0 10px; }
+    .price { font-size:1.4rem; color:#4ade80; margin:15px 0; }
+    footer { padding:40px; background:#000; font-size:0.9rem; opacity:0.6; }
+    @media (max-width:640px){ 
+      h1{font-size:2.5rem;} 
+      .tabs-container { gap: 40px; }
+      .tab { font-size: 1.4rem; }
+      .intro-title { font-size: 1.8rem; }
+      .item { flex: 0 0 300px; }
     }
 
-    footer {
-      padding: 40px;
-      background: #000;
-      font-size: 0.9rem;
-      opacity: 0.6;
+    /* Fade-in animation */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in {
+      animation: fadeInUp 0.7s ease-out forwards;
     }
   </style>
 </head>
-
 <body>
+  <header>
+    <h1>HomeWearGoods</h1>
+    <p class="tagline">Merch that feels like home — Faith × Gaming × Music</p>
+  </header>
 
-<header>
-  <h1>HomeWearGoods</h1>
-  <p class="tagline">Merch that feels like home — Faith × Gaming × Music</p>
-</header>
-
-<div class="intro-section">
-  <div class="intro-title">Your FirstWear</div>
-  <div class="intro-subtitle">Select your firstwear by clicking the tab that makes you feel like home.</div>
-</div>
-
-<div class="tabs-container">
-  <div class="tab active" data-category="faith">Faith</div>
-  <div class="tab" data-category="gaming">Gaming</div>
-  <div class="tab" data-category="music">Music</div>
-</div>
-
-<section class="products" id="products-grid">
-
-  <!-- FAITH PRODUCT -->
-  <div class="item show" data-category="faith">
-    <div id="disciple-mug"></div>
+  <!-- Intro text -->
+  <div class="intro-section">
+    <div class="intro-title">Your FirstWear</div>
+    <div class="intro-subtitle">Select your firstwear by clicking the tab that makes you feel like home.</div>
   </div>
 
-</section>
+  <!-- Tabs -->
+  <div class="tabs-container">
+    <div class="tab active" data-category="faith">Faith</div>
+    <div class="tab" data-category="gaming">Gaming</div>
+    <div class="tab" data-category="music">Music</div>
+  </div>
 
-<footer>
-  © 2025 HomeWearGoods — Made by Freddie Bryant Meyers
-</footer>
+  <section class="products" id="products-grid">
+    <!-- Faith -->
+    <div class="item" data-category="faith">
+      <img src="https://via.placeholder.com/400x400/222222/ffffff?text=Light+>+Shadows+Tee" alt="Light > Shadows Tee">
+      <h3>Light > Shadows Tee</h3>
+      <div class="price">$25</div>
+      <div id="shopify-button-2">Loading…</div>
+    </div>
+    <div class="item coming-soon" data-category="faith">
+      <img src="https://via.placeholder.com/400x400/222222/444444?text=Coming+Soon" alt="Coming Soon">
+      <h3>Coming Soon</h3>
+      <div class="coming-soon-label">SOON</div>
+    </div>
+    <div class="item coming-soon" data-category="faith">
+      <img src="https://via.placeholder.com/400x400/222222/444444?text=Coming+Soon" alt="Coming Soon">
+      <h3>Coming Soon</h3>
+      <div class="coming-soon-label">SOON</div>
+    </div>
 
-<script>
-  // Fade-in animation
-  window.addEventListener('load', () => {
-    document.querySelector('h1').style.opacity = 1;
-    setTimeout(() => document.querySelector('.tagline').style.opacity = 1, 600);
-    setTimeout(() => document.querySelector('.intro-section').style.opacity = 1, 1200);
-    document.getElementById('products-grid').classList.add('visible');
-  });
+    <!-- Gaming -->
+    <div class="item" data-category="gaming">
+      <img src="https://via.placeholder.com/400x400/222222/ffffff?text=Respawn+Hoodie" alt="Respawn Hoodie">
+      <h3>Respawn Hoodie</h3>
+      <div class="price">$45</div>
+      <div id="shopify-button-3">Loading…</div>
+    </div>
+    <div class="item coming-soon" data-category="gaming">
+      <img src="https://via.placeholder.com/400x400/222222/444444?text=Coming+Soon" alt="Coming Soon">
+      <h3>Coming Soon</h3>
+      <div class="coming-soon-label">SOON</div>
+    </div>
+    <div class="item coming-soon" data-category="gaming">
+      <img src="https://via.placeholder.com/400x400/222222/444444?text=Coming+Soon" alt="Coming Soon">
+      <h3>Coming Soon</h3>
+      <div class="coming-soon-label">SOON</div>
+    </div>
 
-  const tabs = document.querySelectorAll('.tab');
-  const items = document.querySelectorAll('.item');
+    <!-- Music -->
+    <div class="item" data-category="music">
+      <img src="https://via.placeholder.com/400x400/222222/ffffff?text=Music+=+Life+Mug" alt="Music = Life Mug">
+      <h3>Music = Life Mug</h3>
+      <div class="price">$15</div>
+      <div id="shopify-button-1">Loading…</div>
+    </div>
+    <div class="item coming-soon" data-category="music">
+      <img src="https://via.placeholder.com/400x400/222222/444444?text=Coming+Soon" alt="Coming Soon">
+      <h3>Coming Soon</h3>
+      <div class="coming-soon-label">SOON</div>
+    </div>
+    <div class="item coming-soon" data-category="music">
+      <img src="https://via.placeholder.com/400x400/222222/444444?text=Coming+Soon" alt="Coming Soon">
+      <h3>Coming Soon</h3>
+      <div class="coming-soon-label">SOON</div>
+    </div>
+  </section>
 
-  let shopifyLoaded = false;
+  <footer>
+    © 2025 HomeWearGoods — Made by Freddie Bryant Meyers<br>
+    Questions? DM @homeweargoods on TikTok/IG
+  </footer>
 
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      tabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
+  <script>
+    // Precise staggered fade-ins on load
+    window.addEventListener('load', function() {
+      // 1. h1 - immediately
+      document.querySelector('h1').classList.add('fade-in');
 
-      const category = tab.dataset.category;
+      // 2. Tagline - 1 second after h1
+      setTimeout(() => {
+        document.querySelector('p.tagline').classList.add('fade-in');
+      }, 1000);
 
-      items.forEach(item => item.classList.remove('show'));
-      document.querySelector(`.item[data-category="${category}"]`)?.classList.add('show');
-
-      if (category === 'faith') loadShopify();
+      // 3. Your FirstWear section - 1 second after tagline (~2s total)
+      setTimeout(() => {
+        document.querySelector('.intro-section').classList.add('fade-in');
+      }, 2000);
     });
-  });
 
-  function loadShopify() {
-    if (shopifyLoaded) return;
-    shopifyLoaded = true;
+    // Tabs functionality
+    const tabs = document.querySelectorAll('.tab');
+    const productsGrid = document.getElementById('products-grid');
+    const items = document.querySelectorAll('.item');
 
-    const script = document.createElement('script');
-    script.src = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
-    script.async = true;
-    script.onload = initShopify;
-    document.body.appendChild(script);
-  }
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
 
-  function initShopify() {
-    const client = ShopifyBuy.buildClient({
-      domain: 'YOUR-SHOP.myshopify.com',
-      storefrontAccessToken: 'YOUR_STOREFRONT_TOKEN'
-    });
+        const category = tab.getAttribute('data-category');
 
-    ShopifyBuy.UI.onReady(client).then(ui => {
-      ui.createComponent('product', {
-        id: '10142594531607',
-        node: document.getElementById('disciple-mug'),
-        moneyFormat: '%24%7B%7Bamount%7D%7D',
-        options: {
-          product: {
-            width: '280px',
-            contents: {
-              img: true,
-              imgWithCarousel: true,
-              title: true,
-              price: true,
-              description: false,
-              quantity: false
-            },
-            styles: {
-              product: {
-                'margin': '0 auto'
-              },
-              button: {
-                'background-color': '#4ade80',
-                'color': '#000',
-                ':hover': { 'background-color': '#22c55e' }
-              },
-              price: {
-                'color': '#4ade80'
-              }
-            },
-            text: {
-              button: 'Add to cart'
-            }
-          }
-        }
+        productsGrid.classList.add('visible');
+
+        items.forEach(item => {
+          item.classList.remove('show');
+        });
+
+        const matchingItems = document.querySelectorAll(`.item[data-category="${category}"]`);
+        matchingItems.forEach((item, index) => {
+          setTimeout(() => {
+            item.classList.add('show');
+          }, index * 200);
+        });
       });
     });
-  }
-</script>
-
+  </script>
 </body>
 </html>
