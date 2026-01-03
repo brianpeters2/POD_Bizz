@@ -8,27 +8,19 @@
     body, html { margin:0; padding:0; font-family:'Helvetica Neue', Arial, sans-serif; background:#0f0f0f; color:#fff; text-align:center; }
     header { padding:60px 20px 40px; background:#111; }
     h1 { font-size:3.5rem; margin:0; letter-spacing:2px; opacity: 0; }
-    p.tagline { font-size:1.3rem; margin:20px 0 40px; opacity:0.8; opacity: 0; }
-    
-    /* Intro section starts hidden */
+    p.tagline { font-size:1.3rem; margin:20px 0 40px; opacity: 0.8; opacity: 0; }
+
+    /* Intro section */
     .intro-section {
       max-width: 800px;
       margin: 0 auto 40px;
       padding: 0 20px;
       opacity: 0;
     }
-    .intro-title {
-      font-size: 2.2rem;
-      font-weight: bold;
-      margin-bottom: 12px;
-      letter-spacing: 1px;
-    }
-    .intro-subtitle {
-      font-size: 1.2rem;
-      opacity: 0.8;
-    }
-    
-    /* Tabs container */
+    .intro-title { font-size: 2.2rem; font-weight: bold; margin-bottom: 12px; letter-spacing: 1px; }
+    .intro-subtitle { font-size: 1.2rem; opacity: 0.8; }
+
+    /* Tabs */
     .tabs-container {
       max-width: 1200px;
       margin: 0 auto;
@@ -48,13 +40,8 @@
       position: relative;
       padding: 10px 0;
     }
-    .tab:hover {
-      opacity: 1;
-      transform: scale(1.1);
-    }
-    .tab.active {
-      opacity: 1;
-    }
+    .tab:hover { opacity: 1; transform: scale(1.1); }
+    .tab.active { opacity: 1; }
     .tab.active::after {
       content: '';
       position: absolute;
@@ -65,8 +52,8 @@
       background: #4ade80;
       border-radius: 2px;
     }
-    
-    /* Products section - hidden until first click */
+
+    /* Products section */
     .products { 
       display: flex;
       flex-wrap: wrap;
@@ -83,8 +70,8 @@
       visibility: visible;
       transition: opacity 0.6s ease, visibility 0s 0s;
     }
-    
-    /* Fixed item size */
+
+    /* Product items */
     .item {
       flex: 0 0 360px;
       background: #1a1a1a; 
@@ -101,26 +88,25 @@
       opacity: 1;
       transform: translateY(0);
     }
-    
-    /* Coming Soon style */
-    .item.coming-soon {
-      opacity: 0.5;
-      border: 2px dashed #333;
-    }
-    .item.coming-soon h3 {
-      color: #888;
-      margin-top: 40px;
-    }
-    .coming-soon-label {
-      font-size: 1.8rem;
-      font-weight: bold;
-      color: #4ade80;
-      margin: 20px 0;
-    }
-    
+    .item.coming-soon { opacity: 0.5; border: 2px dashed #333; }
+    .item.coming-soon h3 { color: #888; margin-top: 40px; }
+    .coming-soon-label { font-size: 1.8rem; font-weight: bold; color: #4ade80; margin: 20px 0; }
+
     .item img { width:100%; border-radius:12px; }
     .item h3 { font-size:1.6rem; margin:20px 0 10px; }
     .price { font-size:1.4rem; color:#4ade80; margin:15px 0; }
+
+    /* Shopify Buy Button style */
+    .shopify-buy__btn { 
+      background-color: #4ade80 !important; 
+      color: #000 !important; 
+      font-weight: bold; 
+      border-radius: 12px !important;
+      padding: 12px 20px !important;
+      font-size: 1rem !important;
+      cursor: pointer;
+    }
+
     footer { padding:40px; background:#000; font-size:0.9rem; opacity:0.6; }
     @media (max-width:640px){ 
       h1{font-size:2.5rem;} 
@@ -131,14 +117,8 @@
     }
 
     /* Fade-in animation */
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .fade-in {
-      animation: fadeInUp 0.7s ease-out forwards;
-    }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .fade-in { animation: fadeInUp 0.7s ease-out forwards; }
   </style>
 </head>
 <body>
@@ -147,13 +127,11 @@
     <p class="tagline">Merch that feels like home — Faith × Gaming × Music</p>
   </header>
 
-  <!-- Intro text -->
   <div class="intro-section">
     <div class="intro-title">Your FirstWear</div>
     <div class="intro-subtitle">Select your firstwear by clicking the tab that makes you feel like home.</div>
   </div>
 
-  <!-- Tabs -->
   <div class="tabs-container">
     <div class="tab active" data-category="faith">Faith</div>
     <div class="tab" data-category="gaming">Gaming</div>
@@ -166,7 +144,7 @@
       <img src="https://via.placeholder.com/400x400/222222/ffffff?text=Light+>+Shadows+Tee" alt="Light > Shadows Tee">
       <h3>Light > Shadows Tee</h3>
       <div class="price">$25</div>
-      <div id="shopify-button-2">Loading…</div>
+      <div id="product-component-1767467124116"></div>
     </div>
     <div class="item coming-soon" data-category="faith">
       <img src="https://via.placeholder.com/400x400/222222/444444?text=Coming+Soon" alt="Coming Soon">
@@ -184,7 +162,7 @@
       <img src="https://via.placeholder.com/400x400/222222/ffffff?text=Respawn+Hoodie" alt="Respawn Hoodie">
       <h3>Respawn Hoodie</h3>
       <div class="price">$45</div>
-      <div id="shopify-button-3">Loading…</div>
+      <div id="product-component-1767467124117"></div>
     </div>
     <div class="item coming-soon" data-category="gaming">
       <img src="https://via.placeholder.com/400x400/222222/444444?text=Coming+Soon" alt="Coming Soon">
@@ -202,7 +180,7 @@
       <img src="https://via.placeholder.com/400x400/222222/ffffff?text=Music+=+Life+Mug" alt="Music = Life Mug">
       <h3>Music = Life Mug</h3>
       <div class="price">$15</div>
-      <div id="shopify-button-1">Loading…</div>
+      <div id="product-component-1767467124118"></div>
     </div>
     <div class="item coming-soon" data-category="music">
       <img src="https://via.placeholder.com/400x400/222222/444444?text=Coming+Soon" alt="Coming Soon">
@@ -221,24 +199,14 @@
     Questions? DM @homeweargoods on TikTok/IG
   </footer>
 
+  <!-- Fade-in & tabs JS -->
   <script>
-    // Precise staggered fade-ins on load
     window.addEventListener('load', function() {
-      // 1. h1 - immediately
       document.querySelector('h1').classList.add('fade-in');
-
-      // 2. Tagline - 1 second after h1
-      setTimeout(() => {
-        document.querySelector('p.tagline').classList.add('fade-in');
-      }, 1000);
-
-      // 3. Your FirstWear section - 1 second after tagline (~2s total)
-      setTimeout(() => {
-        document.querySelector('.intro-section').classList.add('fade-in');
-      }, 2000);
+      setTimeout(() => document.querySelector('p.tagline').classList.add('fade-in'), 1000);
+      setTimeout(() => document.querySelector('.intro-section').classList.add('fade-in'), 2000);
     });
 
-    // Tabs functionality
     const tabs = document.querySelectorAll('.tab');
     const productsGrid = document.getElementById('products-grid');
     const items = document.querySelectorAll('.item');
@@ -247,23 +215,57 @@
       tab.addEventListener('click', () => {
         tabs.forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
-
         const category = tab.getAttribute('data-category');
-
         productsGrid.classList.add('visible');
-
-        items.forEach(item => {
-          item.classList.remove('show');
-        });
-
+        items.forEach(item => item.classList.remove('show'));
         const matchingItems = document.querySelectorAll(`.item[data-category="${category}"]`);
-        matchingItems.forEach((item, index) => {
-          setTimeout(() => {
-            item.classList.add('show');
-          }, index * 200);
-        });
+        matchingItems.forEach((item, index) => setTimeout(() => item.classList.add('show'), index * 200));
       });
     });
   </script>
+
+  <!-- Shopify Buy Buttons -->
+  <script type="text/javascript">
+  (function () {
+    var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
+    if (window.ShopifyBuy) { if (window.ShopifyBuy.UI) { ShopifyBuyInit(); } else { loadScript(); } } else { loadScript(); }
+    function loadScript() {
+      var script = document.createElement('script');
+      script.async = true; script.src = scriptURL;
+      document.body.appendChild(script);
+      script.onload = ShopifyBuyInit;
+    }
+    function ShopifyBuyInit() {
+      var client = ShopifyBuy.buildClient({
+        domain: '1vui80-yp.myshopify.com',
+        storefrontAccessToken: '13c816c212788e84e7297615156fc734',
+      });
+      ShopifyBuy.UI.onReady(client).then(function (ui) {
+        // Faith Tee
+        ui.createComponent('product', {
+          id: '10142594531607',
+          node: document.getElementById('product-component-1767467124116'),
+          moneyFormat: '%24%7B%7Bamount%7D%7D',
+          options: { product:{layout:'horizontal',contents:{img:false,description:true},text:{button:'Add to cart'}},cart:{text:{total:'Subtotal',button:'Checkout'}} }
+        });
+        // Gaming Hoodie
+        ui.createComponent('product', {
+          id: '10142594531608',
+          node: document.getElementById('product-component-1767467124117'),
+          moneyFormat: '%24%7B%7Bamount%7D%7D',
+          options: { product:{layout:'horizontal',contents:{img:false,description:true},text:{button:'Add to cart'}},cart:{text:{total:'Subtotal',button:'Checkout'}} }
+        });
+        // Music Mug
+        ui.createComponent('product', {
+          id: '10142594531609',
+          node: document.getElementById('product-component-1767467124118'),
+          moneyFormat: '%24%7B%7Bamount%7D%7D',
+          options: { product:{layout:'horizontal',contents:{img:false,description:true},text:{button:'Add to cart'}},cart:{text:{total:'Subtotal',button:'Checkout'}} }
+        });
+      });
+    }
+  })();
+  </script>
+
 </body>
 </html>
